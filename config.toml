@@ -1,0 +1,4 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'Hashing Algorithms'
+theme = 'ronu-hugo-theme'

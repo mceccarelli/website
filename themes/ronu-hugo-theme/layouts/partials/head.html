@@ -1,0 +1,31 @@
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ with .Title }}{{ . }}{{ else }}{{ .Site.Title }}{{end}}</title>
+
+    <meta name="robots" content="noodp"/>
+    
+    {{ if .IsPage }}
+      <meta name="description" content="{{ .Description }}">
+    {{ else if .IsHome }}
+        <meta name="description" content="{{ .Site.Params.description }} by {{ .Site.Author.name }}">
+    {{ else if .IsNode }}
+          <meta name="description" content="{{ .Title }}">
+    {{ end }}
+
+    <link rel="canonical" href="{{ .Permalink }}"/>
+  
+    {{ template "_internal/opengraph.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/schema.html" . }}
+
+    {{ with .OutputFormats.Get "rss" -}}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+
+	<!-- Styles from Sakura and Dark mode support -->
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}css/sakura.css" media="screen" />
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}css/sakura-dark.css" media="screen and (prefers-color-scheme: dark)" />
+	<!-- Custom CSS Styles -->
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}css/custom.css" />
+</head>
